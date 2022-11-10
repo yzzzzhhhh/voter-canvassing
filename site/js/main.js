@@ -1,6 +1,6 @@
 
 import {initializevoteMap} from './vote-map.js';
-import {initfileInfoForm,showvotersInList} from './loadfile.js';
+import {initfileInfoForm} from './loadfile.js';
 
 
 let voteMap = initializevoteMap();
@@ -12,16 +12,18 @@ let app = {
 
 
 // `onfileSelected` will be called if and when the user clicks on the button
-function onbuttonclicked(evt) {
+/*function onbuttonclicked(evt) {
     const voter = evt.detail.voter;
     app.currentfile=voter;
     showvotersInList(voter);
-  }
+  }*/
 
-  function setupInteractionEvents() {
-  window.addEventListener('clicked', onbuttonclicked);
-  }
+  //showvotersInList(onbuttonClicked);
+
+  /*function setupInteractionEvents() {
+  window.addEventListener('click',initfileInfoForm());
+  };*/
 initfileInfoForm();
-setupInteractionEvents();
+//setupInteractionEvents();
 
   window.app = app;
