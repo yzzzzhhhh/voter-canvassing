@@ -1,0 +1,40 @@
+html,
+body {
+    height: 100%;
+    overflow-y: hidden;
+  }
+  .input-box {
+    padding-bottom: 10px;
+  }
+
+  #vote-map {
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 50%;
+  }
+
+  .container-fluid {
+    height: 100%;
+    width: 100%;
+  }
+
+  .left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    margin-left: 0;
+  }
+
+  ul {
+    padding: 0;
+    flex: auto;
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+  
+  ul,
+  li {
+    font-size: 13px;
+    text-align: center;
+  }
