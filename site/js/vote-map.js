@@ -1,5 +1,5 @@
 function initializevoteMap () {
-    let voteMap = L.map ('vote-map').setView([39.952436849966794,-75.16356820883757], 11);
+    let voteMap = L.map('vote-map').setView([39.952436849966794,-75.16356820883757], 11);
 
     const mapboxAccount = 'mapbox';
     const mapboxStyle = 'light-v10';

@@ -1,6 +1,6 @@
 
 import {initializevoteMap} from './vote-map.js';
-import {initfileInfoForm} from './loadfile.js';
+import {initfileInfoForm, onSuccess} from './loadfile.js';
 
 
 let voteMap = initializevoteMap();

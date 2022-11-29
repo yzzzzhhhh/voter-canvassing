@@ -12,31 +12,52 @@ window.voterList = voterList;
 }*/
 
 
-function onbuttonClicked() {
-const number=voterFileInput.value;
-const path='../data/voters_lists/' + number + '.csv'; 
-fetch(path)
-    .then(resp => {
-      if (resp.status === 200) {
-        //const jsonObj = Papa.parse(resp,{header:true,skipEmptyLines:true}).jsonObj;
-        const data = resp.text();
-        const voterinfo = `<li class="list-group-item">${data}</li>`;
-        voterList.innerHTML = voterinfo;
-        alert('yeah!');
-        return data;
-      } 
-      else {
-        alert('Oh no, I failed to download the data.');
-      }
-    })
-    .then();
+
+
+
+function onbuttonClicked(onSuccess) {
+  const number= voterFileInput.value;
+  const path='./data/voters_lists/' + number + '.csv';
+  const resp = fetch(path).then(resp => {
+    if (resp.status === 200) {
+      const data = resp.text().then(data => {resp.text
+      const jsonObj = Papa.parse(data,{header: true, skipEmptyLines:true})
+      onSuccess(jsonObj)
+      });  
+    
+    }
+    else {
+      alert('Oh no, I failed to download the data.'); 
+    }
+})}
+
+
+function onSuccess(data) {
+  console.log(data)
 }
+
 
 
 function initfileInfoForm() {
-  if(voterFileLoadButton){voterFileLoadButton.addEventListener('click', onbuttonClicked);};
+  voterFileLoadButton.addEventListener('click', function(){ onbuttonClicked(onSuccess) });
 }
 
+
+//
+/*
+function onbuttonClicked(onSuccess,onFailure) {
+  const number=voterFileInput.value;
+  const path='./data/voters_lists/' + number + '.csv';
+  const resp = fetch(path).then(resp => {
+    if (resp.status === 200) {
+      const data = resp.text().then(data => {resp.text
+      console.log(data)})
+    } 
+    else {
+      alert('Oh no, I failed to download the data.'); 
+  }})};
+
+*/
 
 
 /*function downloadFile(filedata) { 
@@ -50,9 +71,21 @@ function initfileInfoForm() {
         alert('Oh no, I failed to download the data.');
       }
     });
-  }*/
+  }
+  
+  {
+    if (resp.status === 200) {
+      resp.text().then(data = {text.content.csv })
+        //const jsonObj = data; //Papa.parse(data,{headertrue,skipEmptyLinestrue}).data;
+        //const jsonObj = data; 
+        //Papa.parse(data,{headertrue,skipEmptyLinestrue}).data;
+        onSuccess(data)
+    } else {
+      alert('Oh no, I failed to download the data.');
+      if (onFailure) { onFailure() }
+    }*/
 
-  export{
+  export {
     initfileInfoForm,
-    
+    onSuccess
   }
