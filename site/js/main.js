@@ -1,29 +1,57 @@
 
 import {initializevoteMap} from './vote-map.js';
-import {initfileInfoForm} from './loadfile.js';
-
-
 let voteMap = initializevoteMap();
 window.voteMap = voteMap;
 
-let app = {
-    currentfile: null,
-  };
+import { additionalData } from "./loadfile.js";
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore.js';
+// My web app's Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDL11M21sMZ6wJ1SxFvEqEvQkipD7DFKjk",
+  authDomain: "voter-canvassing.firebaseapp.com",
+  projectId: "voter-canvassing",
+  storageBucket: "voter-canvassing.appspot.com",
+  messagingSenderId: "20100623977",
+  appId: "1:20100623977:web:2d20af24c659bdda17bcf8",
+  measurementId: "G-BXCLNBWQH6",
+};
 
 
-// `onfileSelected` will be called if and when the user clicks on the button
-/*function onbuttonclicked(evt) {
-    const voter = evt.detail.voter;
-    app.currentfile=voter;
-    showvotersInList(voter);
-  }*/
+const firebaseApp = initializeApp(firebaseConfig);
+const firestoreDb = getFirestore(firebaseApp);
 
-  //showvotersInList(onbuttonClicked);
 
-  /*function setupInteractionEvents() {
-  window.addEventListener('click',initfileInfoForm());
-  };*/
-initfileInfoForm();
-//setupInteractionEvents();
+function updateVoters(additionalInfo) {
+    for(let voter of data) {
+      let thisId = voter["ID Number"];
+      if(additionalInfo[thisId]) {
+        let thisAdditionalInfo = additionalInfo[thisId];
+        let keys = Object.keys(thisAdditionalInfo);
+        for(let key of keys){
+          voter[key] = thisAdditionalInfo[key];
+        }
+      }
+    }
+  }
 
-  window.app = app;
+
+async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
+    try {
+      const voterNotesDoc = doc(firestoreDb, "voter-info", listNumber);
+      const result = await getDoc(voterNotesDoc);
+      additionalData.info = result.data();
+      updateVoters(result.data(), data);
+  
+    } catch {
+      additionalData.info = {};
+    }
+    showOnMap(data);
+    showInList(data);
+    
+  }
+
+  export{
+    updateAdditionalInfo,
+    updateVoters,
+  }
