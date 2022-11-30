@@ -7,10 +7,6 @@ let tooltip=document.querySelector("#input-button").querySelector(".tooltiptext"
 window.tooltip = tooltip;
 
 
-/*function showvotersInList(voter) {
-  const voterinfo = `<li class="list-group-item">[Name:${voter.properties['First Name']}${voter.properties['Middle Name']}${voter.properties['Last Name']}] [Address: ${voter.properties['Line Matched Address']}]</li>`;
-  voterList.innerHTML = voterinfo;
-}*/
 export let inputnumber;
 export let data;
 import { showvotersinlist }  from './vote_list.js';
@@ -97,5 +93,7 @@ function onbuttonClicked(){
 }
 
  voterFileLoadButton.addEventListener("click", onbuttonClicked);
+
+
 
 
